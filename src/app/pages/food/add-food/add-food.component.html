@@ -1,0 +1,57 @@
+<div class="px-2 md:px-[60px] md:py-10 overflow-y-auto">
+    <div class="w-full my-2 border-b-4 border-b-primary">
+        <h2 class="text-[22px] md:text-heading">Add Food</h2>
+    </div>
+    <div class="bg-white md:mt-8 shadow-md shadow-black">
+        <form class="flex flex-col space-y-10 p-2 md:p-7" (ngSubmit)="onSubmit(form)" #form="ngForm">
+            <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-8 md:flex-row">
+                <div class="flex flex-col space-y-[38px]">
+                    <div class="flex-1 relative mt-[38px] md:mt-0">
+                        <input type="text" id="name" class="w-full md:w-[587px] h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Food Name" required name="name" [(ngModel)]="formData.name">
+                        <label for="name" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 cursor-text">Food Name</label>
+                    </div>
+                    <div class="relative flex-1">
+                        <textarea id="description" type="text" class="w-full md:w-[587px] h-48 p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Description" name="description" [(ngModel)]="formData.description"></textarea>
+                        <label for="description" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 cursor-text">Description</label>
+                    </div>
+                </div>
+                <div class="flex-1 flex items-center justify-center border-2 border-dashed order-first md:order-none">
+                    <div class="border-dashed" (click)="onChangeImage()">
+                        <img [src]="url" alt="" class="w-[278px] h-[241px]">
+                        <input type="file" class="hidden" id="image" (change)="onSelected($event)" [(ngModel)]="formData.image" required name="image">
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-8 md:flex-row">
+                <div class="relative flex-1">
+                    <input id="price" type="number" class="w-full h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Price" [(ngModel)]="formData.price" required name="price">
+                    <label for="price" class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400">Price</label>
+                </div>
+                <div class="relative flex-1">
+                    <select [(ngModel)]="formData.discountType" class="w-full h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Select Discount Type" required name="discountType">
+                        <option [value]="0">None</option>
+                        <option [value]="1">Flat</option>
+                        <option [value]="2">Percentage</option>
+                    </select>
+                    <label class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400">Select Discount Type</label>
+                </div>
+                <div class="relative flex-1">
+                    <input [disabled]="formData.discountType == 0" id="discount" type="number" class="w-full h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Discount" [(ngModel)]="formData.discount" required name="discount" (input)="onChangeDiscountPrice()">
+                    <label for="discount" class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base">{{ formData.discountType == 1 ? 'Discount in BDT': 'Discount in %'}}</label>
+                </div>
+                <div class="relative flex-1">
+                    <input [disabled]="formData.discountType == 0" id="discountPrice" type="number" class="w-full h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Discounted Price" [(ngModel)]="formData.discountPrice" required name="discountPrice">
+                    <label for="discountPrice" class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base">Discounted Price</label>
+                </div>
+            </div>
+            <button class="w-full h-[50px] bg-primary text-white rounded-md">
+                <ng-container *ngIf="isSubmitting; else submitText">
+                    <app-submitting-loader></app-submitting-loader>
+                </ng-container>
+                <ng-template #submitText>
+                    Submit
+                </ng-template>
+            </button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+.name-container {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+}

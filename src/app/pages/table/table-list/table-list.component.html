@@ -1,0 +1,121 @@
+<div class="md:px-[60px] md:py-10 overflow-y-auto">
+    <div *ngIf="isLoading"
+        class="flex justify-center items-center w-screen h-screen bg-black bg-opacity-60 z-50 absolute top-0 left-0">
+        <app-spinner></app-spinner>
+    </div>
+    <div>
+        <div class="flex justify-between m-2">
+            <div class="border-b-4 border-b-primary">
+                <h1 class="text-[22px] md:text-heading">All Table List</h1>
+            </div>
+            <button *ngIf="userRole==='ROLE_ADMIN'" class="border-2 border-primary w-32 h-10 rounded-md" routerLink="/add-table"><span
+                    class="text-sm">ADD TABLE</span></button>
+        </div>
+        <div class="mt-5 bg-white shadow-sm shadow-black">
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="text-primary border-b">
+                        <tr>
+                            <th class="p-4">
+                                Image
+                            </th>
+                            <th class="p-4">
+                                Table Number
+                            </th>
+                            <th class="p-4">
+                                Total Seats
+                            </th>
+                            <th class="p-4">
+                                Availability
+                            </th>
+                            <th *ngIf="userRole==='ROLE_ADMIN' || userRole==='ROLE_EMPLOYEE'" class="p-4">
+                                Employees
+                            </th>
+                            <th *ngIf="userRole==='ROLE_ADMIN'" class="p-4">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b" *ngFor="let table of tables">
+                            <td class="px-4">
+                                <img [src]="table.image" alt=""
+                                    class="h-[50px] w-[50px] rounded-full">
+                            </td>
+                            <td class="p-4">
+                                {{ table.tableNumber}}
+                            </td>
+                            <td class="p-4">
+                                {{ table.numberOfSeats }}
+                            </td>
+                            <td class="p-4">
+                                <mat-icon *ngIf="!table.isOccupied" class="text-green-700">check_circle</mat-icon>
+                                <mat-icon *ngIf="table.isOccupied" class="text-red-700">check_circle</mat-icon>
+                            </td>
+                            <td *ngIf="userRole==='ROLE_ADMIN' || userRole==='ROLE_EMPLOYEE'" class="flex flex-col space-y-2 p-4">
+                                <div *ngFor="let employee of table.employees">
+                                    <div class="name-container items-center justify-center bg-[#dfdfdf] rounded-full px-[10px] py-[5px]">
+                                        <p class=" font-base truncate">{{ employee.name }}</p>
+                                        <mat-icon class="hover:text-primary ml-1"
+                                            (click)="onClickDeleteEmployee(employee.employeeTableId)">remove_circle_outline</mat-icon>
+                                    </div>
+                                </div>
+                                
+                                <mat-icon class="text-yellow-600"
+                                    (click)=" onAddEmployeeToTable(table)">add_circle_outline</mat-icon>
+                            </td>
+                            <td *ngIf="userRole==='ROLE_ADMIN'" class="p-4">
+                                <div class="flex space-x-3" (click)="onDelete(table.id)">
+                                    <mat-icon class="text-menuColor hover:text-primary">delete</mat-icon>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--For pagination-->
+            <div class="flex items-center justify-between w-full md:space-x-6 md:justify-end px-2 py-4">
+                <div>
+                    <label for="page">Items per Page: </label>
+                    <select id="page" class="border bottom-1" [(ngModel)]="pageSize" (change)="loadTableData()">
+                        <option [value]="10">10</option>
+                        <option [value]="15">15</option>
+                        <option [value]="20">20</option>
+                    </select>
+                </div>
+                <div>
+                    {{ getTableResponse?.from}}-{{ getTableResponse?.to}} of {{ getTableResponse?.totalItems}}
+                </div>
+                <div>
+                    <button type="button" [disabled]="pageNumber<=1" (click)="onChangePage(-1)"><mat-icon
+                            [ngClass]="{ 'text-gray-400' : pageNumber<=1 }" class="text-sm">arrow_back_ios</mat-icon></button>
+                    <button type="button" [disabled]="pageNumber>=getTableResponse?.totalPages"
+                        (click)="onChangePage(1)"><mat-icon
+                            [ngClass]="{ 'text-gray-400' : pageNumber>=getTableResponse?.totalPages }"
+                            class="text-sm">arrow_forward_ios</mat-icon></button>
+                </div>
+            </div>
+        </div>
+        <!--Add Employee Modal-->
+        <div *ngIf="isAddEmployeeMode"
+            class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full semi-transparent-bg md:inset-0 h-screen max-h-full">
+            <app-add-table-employee (loadTable)="loadTableData()"></app-add-table-employee>
+        </div>
+        <!--Confirmation Modal-->
+        <div *ngIf="isSureToDelete"
+            class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full semi-transparent-bg md:inset-0 h-screen max-h-full">
+            <div class="flex flex-col items-center py-5 w-4/5 md:w-1/3 h-1/2 bg-white rounded-md">
+                <div class="text-8xl">
+                    <mat-icon inline="true" class="text-yellow-500">help_outline</mat-icon>
+                </div>
+                <h1 class="text-2xl text-gray-500 font-bold">Remove Employee</h1>
+                <p class="mt-4">Do you want to remove this employee?</p>
+                <div class="flex space-x-2 mt-4">
+                    <button class="bg-blue-400 w-16 h-12 rounded-md text-white"
+                        (click)="onDeleteEmployee()">Yes</button>
+                    <button class="bg-gray-400 w-16 h-12 rounded-md text-white" (click)="onCancelDelete()">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

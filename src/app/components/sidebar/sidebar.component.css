@@ -1,0 +1,5 @@
+.active {
+    background: #F8E1E1;
+    border-radius: 10px;
+    transition: background 1s ease-in-out;
+} 

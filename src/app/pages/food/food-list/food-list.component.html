@@ -1,0 +1,98 @@
+<div class="md:px-[60px] md:py-10 overflow-y-auto">
+    <div *ngIf="isLoading"
+        class="flex justify-center items-center w-screen min-h-screen bg-black bg-opacity-60 z-50 absolute top-0 left-0">
+        <app-spinner></app-spinner>
+    </div>
+    <div>
+        <div class="flex justify-between m-2">
+            <div class="border-b-4 border-b-primary">
+                <h1 class="text-[22px] md:text-heading">All Food List</h1>
+            </div>
+            <button *ngIf="userRole === 'ROLE_ADMIN' || userRole === 'ROLE_EMPLOYEE'" class="border-2 border-primary w-32 h-10 rounded-md" routerLink="/add-food"><span
+                    class="text-sm">ADD FOOD</span></button>
+        </div>
+        <div class="mt-5 shadow-sm bg-white shadow-black">
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left">
+                    <thead class="text-primary border-b">
+                        <tr>
+                            <th class="p-4">
+                                Image
+                            </th>
+                            <th class="p-4">
+                                Name
+                            </th>
+                            <th class="p-4">
+                                Price
+                            </th>
+                            <th class="p-4">
+                                Discount Type
+                            </th>
+                            <th class="p-4">
+                                Discount
+                            </th>
+                            <th class="p-4">
+                                Discount Price
+                            </th>
+                            <th *ngIf="userRole === 'ROLE_ADMIN'" class="p-4">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b" *ngFor="let food of foods">
+                            <td class="px-4">
+                                <img [src]="food.image" alt=""
+                                    class="h-[40px] w-[40px] rounded-full">
+                            </td>
+                            <td class="flex p-4">
+                                <p class="w-24 truncate">{{ food.name }}</p>
+                            </td>
+                            <td class="p-4">
+                                <p class="w-24 truncate">{{ food.price }}</p>
+                            </td>
+                            <td class="p-4">
+                                {{ food.discountType }}
+                            </td>
+                            <td class="p-4">
+                                {{ food.discount }}
+                            </td>
+                            <td class="p-4">
+                                {{ food.discountPrice }}
+                            </td>
+                            <td *ngIf="userRole === 'ROLE_ADMIN'" class="p-4">
+                                <div class="flex space-x-3">
+                                    <mat-icon class="text-green-500 hover:text-green-700">edit</mat-icon>
+                                    <div (click)="onDelete(food.id)"><mat-icon
+                                            class="text-menuColor hover:text-primary">delete</mat-icon></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--For pagination-->
+            <div class="flex items-center justify-between w-full md:space-x-6 md:justify-end px-2 py-4">
+                <div>
+                    <label for="page">Items per Page: </label>
+                    <select id="page" class="border bottom-1" [(ngModel)]="pageSize" (change)="loadFoodData()">
+                        <option [value]="10">10</option>
+                        <option [value]="15">15</option>
+                        <option [value]="20">20</option>
+                    </select>
+                </div>
+                <div>
+                    {{ getFoodResponse.from}}-{{ getFoodResponse.to}} of {{ getFoodResponse.totalItems}}
+                </div>
+                <div>
+                    <button type="button" [disabled]="pageNumber<=1" (click)="onChangePage(-1)"><mat-icon
+                            [ngClass]="{ 'text-gray-400' : pageNumber<=1 }" class="text-sm">arrow_back_ios</mat-icon></button>
+                    <button type="button" [disabled]="pageNumber>=getFoodResponse.totalPages"
+                        (click)="onChangePage(1)"><mat-icon
+                            [ngClass]="{ 'text-gray-400' : pageNumber>=getFoodResponse.totalPages }"
+                            class="text-sm">arrow_forward_ios</mat-icon></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

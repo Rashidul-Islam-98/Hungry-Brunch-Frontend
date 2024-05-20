@@ -1,0 +1,18 @@
+<div *ngIf="food" class="flex justify-between w-full h-24 p-2 border-b border-b-gray-500">
+    <div class="flex ml-4">
+        <img [src]="food.image" alt=""
+            class="w-[80px] h-[80px] rounded-full md:my-auto">
+        <div class="flex flex-col space-y-4 ml-6">
+            <h2>{{ food.name }}</h2>
+            <div>
+                <button [disabled]="countFood<=1" class="w-8 border border-gray-600" (click)="onRemoveFood()">-</button>
+                <button class="w-8 border border-gray-600">{{ countFood }}</button>
+                <button class="w-8 border border-gray-600" (click)="onAddFood()">+</button>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-col space-y-4 mr-6">
+        <mat-icon class="justify-self-end" (click)="onDeleteFood()">delete</mat-icon>
+        <p>Price: {{ unitPrice*countFood }} BDT</p>
+    </div>
+</div>

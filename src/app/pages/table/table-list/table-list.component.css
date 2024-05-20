@@ -1,0 +1,8 @@
+.semi-transparent-bg {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.name-container {
+    display: inline-grid;
+    grid-template-columns: auto auto;
+}

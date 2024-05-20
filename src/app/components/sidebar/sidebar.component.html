@@ -1,0 +1,55 @@
+<div class="flex flex-col bg-white w-64 z-50 h-full border border-b-gray-300" (click)="onSidebarClick($event)">
+    <div class="flex items-center h-[68px] border-b-2 border-b-gray-200">
+        <div class="p-4">
+            <img [src]="user?.image" alt="" class="h-[40px] w-[40px] rounded-full">
+        </div>
+        <div class="flex flex-col pl-4">
+            <p >{{ user?.fullName }}</p>
+            <p class="text-sm text-slate-400">{{ user?.email }}</p>
+        </div>
+    </div>
+    <div class="flex flex-col h-full justify-between">
+        <div class="flex flex-col space-y-4 m-2">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <div class="flex items-center p-2" (click)="onClickMenu()">
+                    <mat-icon class="ml-3 text-primary">home</mat-icon>
+                    <span class="ml-6 text-sm font-semibold text-primary">Home</span>
+                </div>
+            </a>
+            <a routerLink="/employees" routerLinkActive="active">
+                <div class="flex items-center p-2" (click)="onClickMenu()">
+                    <mat-icon class="ml-3 text-primary">groups</mat-icon>
+                    <span class="ml-6 text-sm font-semibold text-primary">Employees</span>
+                </div>
+            </a>
+            <a routerLink="/tables" routerLinkActive="active">
+                <div class="flex items-center p-2" (click)="onClickMenu()">
+                    <mat-icon class="ml-3 text-primary">assignment_ind</mat-icon>
+                    <span class="ml-6 text-sm font-semibold text-primary">Tables</span>
+                </div>
+            </a>
+            <a routerLink="/foods" routerLinkActive="active">
+                <div class="flex items-center p-2" (click)="onClickMenu()">
+                    <mat-icon class="ml-3 text-primary">food_bank</mat-icon>
+                    <span class="ml-6 text-sm font-semibold text-primary">Foods</span>
+                </div>
+            </a>
+            <a routerLink="/order-food" routerLinkActive="active">
+                <div class="flex items-center p-2" (click)="onClickMenu()">
+                    <mat-icon class="ml-3 text-primary">assignment_turned_in</mat-icon>
+                    <span class="ml-6 text-sm font-semibold text-primary">Order Food</span>
+                </div>
+            </a>
+            <a routerLink="all-orders" routerLinkActive="active">
+                <div class="flex items-center p-2" (click)="onClickMenu()">
+                    <mat-icon class="ml-3 text-primary">list</mat-icon>
+                    <span class="ml-6 text-sm font-semibold text-primary">Orders</span>
+                </div>
+            </a>
+        </div>
+        <div class="group flex items-center justify-center space-x-2 border-2 border-primary w-5/6 h-10 rounded-full mx-auto mb-4 hover:bg-primary hover:cursor-pointer" (click)="onLogOut()">
+            <mat-icon class="text-primary group-hover:text-white group-hover:cursor-pointer">logout</mat-icon>
+            <p class="font-semibold text-primary group-hover:text-white group-hover:cursor-pointer">Logout</p>
+        </div>
+    </div>
+</div>

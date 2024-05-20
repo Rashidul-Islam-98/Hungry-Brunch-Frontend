@@ -1,0 +1,93 @@
+<div class="px-2 md:px-[60px] md:py-10 overflow-y-auto">
+    <div class="my-2 border-b-4 border-b-primary">
+        <h2 class="text-[22px] md:text-heading">Add Employee</h2>
+    </div>
+    <div class="bg-white md:mt-8 shadow-md shadow-black">
+        <form class="flex flex-col space-y-10 p-2 md:p-7" (ngSubmit)="onSubmit(form)" #form="ngForm">
+            <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-8 md:flex-row">
+                <div class="flex flex-col space-y-[38px]">
+                    <div class="flex-1 relative mt-[38px] md:mt-0">
+                        <input type="text" id="firstName" class="w-full md:w-[587px] h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="First Name" [(ngModel)]="employeeFormData.firstName" required name="firstName">
+                        <label for="firstName" class="absolute left-0 text-green-500 bg-white duration-300 transform -translate-y-2 mx-4 text-xs ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">First Name</label>
+                    </div>
+                    <div class="relative flex-1">
+                        <input id="middleName" type="text" class="w-full md:w-[587px] h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Middle Name" name="firstName" [(ngModel)]="employeeFormData.middleName">
+                        <label for="middleName" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Middle Name</label>
+                    </div>
+                    <div class="relative flex-1">
+                        <input id="lastName" type="text" class="w-full md:w-[587px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Last Name" required name="lastName" [(ngModel)]="employeeFormData.lastName">
+                        <label for="lastName" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Last Name</label>
+                    </div>
+                </div>
+                <div class="flex-1 flex items-center justify-center border-2 border-dashed order-first md:order-none">
+                    <div class="border-dashed" (click)="onChangeImage()">
+                        <img [src]="url" alt="" class="w-[278px] h-[241px]">
+                        <input type="file" class="hidden" id="image" (change)="onSelected($event)" required name="image" [(ngModel)]="employeeFormData.avatar">
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-8 md:flex-row">
+                <div class="relative flex-1">
+                    <input id="spouseName" type="text" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Spouse Name" name="spouseName" [(ngModel)]="employeeFormData.spouseName">
+                    <label for="spouseName" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Spouse Name</label>
+                </div>
+                <div class="relative flex-1">
+                    <input id="fatherName" type="text" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Father Name" required name="fatherName" [(ngModel)]="employeeFormData.fatherName">
+                    <label for="fatherName" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Father Name</label>
+                </div>
+                <div class="relative flex-1">
+                    <input id="motherName" type="text" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Mother Name" required name="motherName" [(ngModel)]="employeeFormData.motherName">
+                    <label for="motherName" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Mother Name</label>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-8 md:flex-row">
+                <div class="relative flex-1">
+                    <input id="designation" type="text" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Designation" required name="designation" [(ngModel)]="employeeFormData.designation">
+                    <label for="designation" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Designation</label>
+                </div>
+                <div class="relative flex-1" [class.has-error]="email.invalid && email.touched">
+                    <input id="email" type="email" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Email" required email pattern="[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z]{2,4})+$" name="email" [(ngModel)]="employeeFormData.email" #email="ngModel">
+                    <label for="email" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Email</label>
+                    <div *ngIf="email.touched">
+                        <p class="text-sm text-primary" *ngIf="email.errors?.['required']">Email is required</p>
+                        <p class="text-sm text-primary" *ngIf="email.errors?.['pattern']">Not a valid Email</p>
+                    </div>
+                </div>
+                <div class="relative flex-1">
+                    <input id="phoneNumber" type="text" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Phone Number" required name="phoneNumber" [(ngModel)]="employeeFormData.phoneNumber" (keypress)="isPhoneNumber($event)">
+                    <label for="phoneNumber" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Phone Number</label>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-8 md:flex-row">
+                <div class="relative flex-1">
+                    <select id="gender" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Gender" required name="gender" [(ngModel)]="employeeFormData.genderId">
+                        <option value="0">Male</option>
+                        <option value="1">Female</option>
+                        <option value="2">Other</option>
+                    </select>
+                    <label for="gender" class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400">Gender</label>
+                </div>
+                <div class="relative flex-1">
+                    <input id="dob" type="date" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Date of Birth" required name="dob" [(ngModel)]="employeeFormData.dob">
+                    <label for="dob" class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400">Date of Birth</label>
+                </div>
+                <div class="relative flex-1">
+                    <input id="joinDate" type="date" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="Date of Join" required name="joinDate" [(ngModel)]="employeeFormData.joinDate">
+                    <label for="joinDate" class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400">Date of Join</label>
+                </div>
+                <div class="relative flex-1">
+                    <input id="nid" type="text" class="w-full h-[56px] p-4 rounded-md border focus:border-green-700 peer placeholder:text-transparent" placeholder="NID" required name="nid" [(ngModel)]="employeeFormData.nid" (keypress)="isNumber($event)">
+                    <label for="nid" class="absolute left-0 text-green-500 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">NID</label>
+                </div>
+            </div>
+            <button class="w-full h-[50px] bg-primary text-white rounded-md">
+                <ng-container *ngIf="isSubmitting; else submitText">
+                    <app-submitting-loader></app-submitting-loader>
+                </ng-container>
+                <ng-template #submitText>
+                    Submit
+                </ng-template>
+            </button>
+        </form>
+    </div>
+</div>

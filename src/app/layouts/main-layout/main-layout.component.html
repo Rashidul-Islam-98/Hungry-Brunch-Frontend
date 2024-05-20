@@ -1,0 +1,13 @@
+<div class="flex">
+    <div [ngClass]="{'open-sidebar': isSidebarOpen }" class="hidden md:block w-64 h-screen semi-transparent-bg md:inset-0 fixed top-0 left-0" (click)="onClose()">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="w-screen md:w-[calc(100vw-15rem)] md:ml-64 overflow-x-hidden">
+        <div class="w-full h-[68px] bg-primary z-40 fixed"><app-header></app-header></div>
+        <div class="w-full mt-[68px] md:w-[calc(100vw-256px)] min-h-[calc(100vh-68px)]">
+            <router-outlet></router-outlet>
+            <app-cart *ngIf="isCartOpen"></app-cart>
+            <app-confirm-dialog *ngIf="isConfirmDialogOpen"></app-confirm-dialog>
+        </div>
+    </div>
+</div> 

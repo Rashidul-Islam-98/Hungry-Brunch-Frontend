@@ -1,0 +1,4 @@
+.bg-image {
+    background: linear-gradient(0deg,rgba(255,255,255,.6),rgb(255,255,255)),url('src\assets\images\bg-image.png') no-repeat center center/cover;
+    background-attachment: fixed;
+}

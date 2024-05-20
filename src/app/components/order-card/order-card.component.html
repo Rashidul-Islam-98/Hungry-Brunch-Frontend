@@ -1,0 +1,48 @@
+<div class="flex flex-col p-4 bg-white rounded-md shadow-sm shadow-black space-y-4 relative">
+    <div class="flex justify-between">
+        <div>
+          <p>{{ order.orderNumber }}</p>
+          <p class="text-gray-400">{{ order.orderTime }}</p>
+        </div>
+        <button *ngIf="userRole === 'ROLE_ADMIN' || userRole === 'ROLE_EMPLOYEE'" [disabled]="order.orderStatus !== 'Pending'" class="flex items-center justify-center w-10 h-10 rounded-full border group" (click)="onDeleteCard(order.id)">
+            <mat-icon [ngClass]="{ 'disable-icon' : order.orderStatus !== 'Pending'}" class="text-red-500">delete</mat-icon></button>
+    </div>
+    <div class="flex flex-col h-52 overflow-y-auto">
+        <div class="flex space-x-3 p-2" *ngFor="let food of order.items">
+            <img [src]="food.food.image" class="w-20 h-20 rounded-full">
+            <div class="flex flex-col w-full justify-between">
+                <h3>{{ food.food.name }}</h3>
+                <div class="flex justify-between">
+                    <p class="text-green-500">{{ food.unitPrice }} BDT</p>
+                    <p> Qty: {{ food.quantity }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-between">
+        <p>Total Items: <span class="font-semibold">{{ order.items.length }}</span></p>
+        <p>Table: <span class="font-semibold">{{ order.table.tableNumber }}</span></p>
+    </div>
+    <div class="flex justify-between">
+        <p>Total: <span class="text-green-500">{{ order.amount }} BDT</span></p>
+        <div *ngIf="!isUpdateStatus" class="flex">
+          <p class="text-green-500 font-semibold cursor-pointer">{{ order.orderStatus }}</p>
+            <mat-icon *ngIf="userRole === 'ROLE_ADMIN' || userRole === 'ROLE_EMPLOYEE'" class="text-gray-400 hover:text-green-600" (click)="onUpdateStatusMode()">update</mat-icon>
+        </div>
+        <div *ngIf="isUpdateStatus">
+            <div id="dropdownDefaultButton" class="w-36 ring-2 ring-gray-400 focus:outline-none focus:ring-green-400 font-medium rounded-lg text-sm px-2 py-2 text-center inline-flex items-center justify-between" type="button">{{ updateStatus ? updateStatus : order.orderStatus }}
+                <mat-icon (click)="onStatusClicked()">{{ isStatusClicked ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</mat-icon>
+            </div>
+                
+                <!-- Dropdown menu -->
+                <div *ngIf="isStatusClicked" id="dropdown" class="bg-white divide-y divide-gray-100 rounded-lg shadow w-40 absolute bottom-10 right-0">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton" *ngFor="let statusOption of statusOptions">
+                      <li>
+                        <p (click)="onUpdateStatus(statusOption.text, statusOption.value)" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-default">{{ statusOption.text }}</p>
+                      </li>
+                     
+                    </ul>
+                </div>
+        </div>
+    </div>    
+</div>

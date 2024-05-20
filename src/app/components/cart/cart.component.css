@@ -1,0 +1,7 @@
+.semi-transparent-bg {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}

@@ -1,0 +1,37 @@
+<div class="px-2 md:px-[60px] md:py-10 overflow-y-auto">
+    <div class="w-full my-2 border-b-4 border-b-primary">
+        <h2 class="text-[22px] md:text-heading">Add Employee</h2>
+    </div>
+    <div class="bg-white w-full mt-8  shadow-md shadow-black">
+        <form class="flex flex-col space-y-10 p-2 md:p-7" (ngSubmit)="onSubmit(f)" #f="ngForm">
+            <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-8 md:flex-row">
+                <div class="flex flex-col space-y-[38px]">
+                    <div class="flex-1 relative mt-[38px] md:mt-0">
+                        <input type="text" id="tableNumber" class="w-full md:w-[587px] h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Table Number" ngModel required name="tableNumber" #tableNumber="ngModel">
+                        <label for="tableNumber" class="absolute left-0 text-green-500 bg-white duration-300 transform -translate-y-2 mx-4 text-xs ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Table Number</label>
+                    </div>
+                    <div class="relative flex-1">
+                        <input type="text" id="numberOfSeats" class="w-full md:w-[587px] h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-700 peer placeholder:text-transparent" placeholder="Number of Seats" ngModel required name="numberOfSeats" #numberOfSeats="ngModel">
+                        <label for="numberOfSeats" class="absolute left-0 text-green-500 bg-white duration-300 transform -translate-y-2 mx-4 text-xs ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:-translate-y-2 cursor-text">Number of Seats</label>
+                    </div>
+                    <div class="flex-1">
+                        <button class="w-full h-[50px] bg-primary text-white rounded-md">
+                            <ng-container *ngIf="isSubmitting; else submitText">
+                                <app-submitting-loader></app-submitting-loader>
+                            </ng-container>
+                            <ng-template #submitText>
+                                Submit
+                            </ng-template>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex-1 flex items-center justify-center border-2 border-dashed order-first md:order-none">
+                    <div class="border-dashed" (click)="onChangeImage()">
+                        <img [src]="url" alt="" class="w-[278px] h-[241px]">
+                        <input type="file" class="hidden" id="avatar" (change)="onSelected($event)" ngModel required name="avatar" #avatar="ngModel">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
