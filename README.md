@@ -1,13 +1,13 @@
-# BSS Restaurant Management Application
+# Hungry Brunch | Restaurant Management Application
 
-The BSS Restaurant Management Application is a comprehensive tool designed to streamline the operations within a restaurant. It allows an admin user to efficiently manage employees, tables, orders, and food items through a user-friendly interface. The application facilitates the assignment of employees to tables and enables seamless order management post successful login.
+The Hungry Brunch is a comprehensive tool designed to streamline the operations within a restaurant. It allows an admin user to efficiently manage employees, tables, orders, and food items through a user-friendly interface. The application facilitates the assignment of employees to tables and enables seamless order management post successful login.
 
 ### Link
-https://restaurant-management-application.vercel.app/login
+https://hungry-brunch-frontend.vercel.app/
 
 ### Username and Password
-#### username: admin@mail.com
-#### password: Admin@123
+#### username: rashidul@mail.com
+#### password: Rashidul@123
 
 ### Preview
 
