@@ -24,7 +24,7 @@
             </div>
             <div class="flex flex-col space-y-4 md:space-y-0 md:space-x-8 md:flex-row">
                 <div class="relative flex-1">
-                    <input id="price" type="number" class="w-full h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Price" [(ngModel)]="formData.price" required name="price">
+                    <input id="price" type="number" class="w-full h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Price" [(ngModel)]="formData.price" required name="price" (input)="onChangePrice()">
                     <label for="price" class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400">Price</label>
                 </div>
                 <div class="relative flex-1">
@@ -40,7 +40,7 @@
                     <label for="discount" class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base">{{ formData.discountType == 1 ? 'Discount in BDT': 'Discount in %'}}</label>
                 </div>
                 <div class="relative flex-1">
-                    <input [disabled]="formData.discountType == 0" id="discountPrice" type="number" class="w-full h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Discounted Price" [(ngModel)]="formData.discountPrice" required name="discountPrice">
+                    <input id="discountPrice" type="number" class="w-full h-[56px] p-4 rounded-md border focus:outline-none focus:border-2 focus:border-green-500 peer placeholder:text-transparent" placeholder="Discounted Price" [(ngModel)]="formData.discountPrice" required name="discountPrice">
                     <label for="discountPrice" class="absolute left-0 text-gray-400 bg-white -translate-y-2 mx-4 text-xs duration-100 ease-linear peer-placeholder-shown:translate-y-4 peer-placeholder-shown:text-base">Discounted Price</label>
                 </div>
             </div>

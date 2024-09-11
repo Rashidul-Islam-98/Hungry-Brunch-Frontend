@@ -43,9 +43,12 @@ export class AddFoodComponent {
     document.getElementById("image")?.click();
   }
 
+  onChangePrice() {
+    this.formData.discountPrice = this.formData.price;
+  }
+
   onChangeDiscountPrice(){
-    const discountValue: number = (Number(this.formData.discountType) === 1) ? this.formData.discount : (this.formData.price*this.formData.discount)/100;
-    console.log(discountValue);
+    const discountValue: number = (Number(this.formData.discountType) === 2) ? (this.formData.price*this.formData.discount)/100 : this.formData.discount;
     this.formData.discountPrice = Number(this.formData.price) - Number(discountValue);
   }
 
