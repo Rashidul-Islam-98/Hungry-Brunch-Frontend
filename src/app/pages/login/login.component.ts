@@ -11,13 +11,10 @@ import { IAuthResponse } from 'src/app/models/auth-response.model';
 })
 export class LoginComponent {
   isLoading: boolean = false;
-  authResponse: any = {
-    user: {},
-    token: ''
-  };
   isError: boolean = false;
   username: string = "rashidul@mail.com";
   password: string = "Rashidul@123";
+  rememberMe: boolean = false;
 
   constructor(private http: HttpClient,
     private authService: AuthService) { }
@@ -28,7 +25,8 @@ export class LoginComponent {
     this.http.post<IAuthResponse>(`${baseUrl}auth/login`,
       {
         username: this.username,
-        password: this.password
+        password: this.password,
+        rememberMe: this.rememberMe
       }).subscribe(response => {
         this.authService.login(response);
         this.isLoading = false;

@@ -1,4 +1,10 @@
 export interface IAuthResponse {
-    token: string,
+    accessToken: string,
+    refreshToken: string,
     forceChangePassword: boolean
+}
+
+export interface IRefreshTokenResponse {
+    accessToken: string,
+    refreshToken: string
 }
